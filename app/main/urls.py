@@ -8,5 +8,5 @@ app_name = 'main'
 
 urlpatterns = [
     path('items/create', ItemsCreateView.as_view(), name='items__create'),
-    path('items', ItemsView.as_view(), name='items'),
+    path('items/<int:item_id>', ItemsView.as_view(), name='items'),
 ]

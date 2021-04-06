@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -32,4 +33,13 @@ class ItemsView(GenericAPIView):
         return Response(
             items,
             status=status.HTTP_200_OK
+        )
+
+    def patch(self, request, item_id):
+        item = get_object_or_404(self.queryset, pk=item_id)
+        updated_item = self.get_serializer(item, data=request.data).load_and_save()
+
+        return Response(
+                ItemSerializer(updated_item).data,
+                status=status.HTTP_200_OK
         )
