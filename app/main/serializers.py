@@ -26,8 +26,9 @@ class ItemListSerializer(serializers.ListSerializer):
 
 
 class ItemSerializer(base_serializers.ModelSerializer):
+    id = serializers.IntegerField(source='pk', read_only=True)
     value = serializers.CharField(required=True)
 
     class Meta:
         model = Item
-        fields = ('value',)
+        fields = ('id', 'value',)
