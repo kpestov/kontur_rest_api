@@ -1,15 +1,18 @@
 from django.db import models
 
 
-class Storage(models.Model):
+class Item(models.Model):
     """
-    Модель хранилища данных
+    Модель объекта
     Attributes:
-        key - ключ объекта из хранилища
-        value - значение объекта из хранилища
+        value - значение объекта
     """
-    key = models.CharField(max_length=255)
     value = models.CharField(max_length=255)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['value'], name='unique_value')
+        ]
+
     def __str__(self):
-        return f'[pk: {self.pk}] [storage_key: {self.key}] [storage_value: {self.value}]'
+        return f'[pk: {self.pk}] [item_value: {self.value}]'
