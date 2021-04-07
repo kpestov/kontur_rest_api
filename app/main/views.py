@@ -1,3 +1,6 @@
+import json
+import requests
+
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
@@ -6,6 +9,7 @@ from rest_framework.generics import GenericAPIView
 
 from .serializers import ItemListSerializer, ItemSerializer
 from app.main.models import Item
+from app.utils.cache import cache_data
 
 
 class ItemsCreateView(APIView):
@@ -23,7 +27,7 @@ class ItemsCreateView(APIView):
 
 
 class ItemsView(GenericAPIView):
-    """View на отдачу всех объектов из базы """
+    """View на отдачу всех объектов из базы и обновление отдельного объекта"""
 
     serializer_class = ItemSerializer
     queryset = Item.objects
@@ -42,4 +46,16 @@ class ItemsView(GenericAPIView):
         return Response(
                 ItemSerializer(updated_item).data,
                 status=status.HTTP_200_OK
+        )
+
+
+class ProxyView(APIView):
+    upstream = 'https://kats1.skbkontur.ru/api_test/test.json'
+
+    def get(self, request):
+        proxy_value = cache_data(data=requests.get(self.upstream).text, cache_name='proxy_value')
+        json_string = json.dumps(proxy_value)
+        return Response(
+            data=json.loads(json_string),
+            status=status.HTTP_200_OK
         )

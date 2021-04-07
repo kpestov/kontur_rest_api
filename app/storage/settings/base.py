@@ -218,3 +218,18 @@ logging.config.dictConfig({
         },
     }
 })
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://localhost:6379",
+        "TIMEOUT": 30,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "SOCKET_CONNECT_TIMEOUT": 5,  # seconds
+            "SOCKET_TIMEOUT": 5,  # seconds
+            # "PASSWORD": f"{os.getenv('REDIS_PASSWORD')}",
+        },
+        'VERSION': 1,
+    }
+}
