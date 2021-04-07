@@ -12,7 +12,7 @@ from app.utils.cache import cache_data
 
 
 class ItemsCreateView(APIView):
-    """View на создание объектов"""
+    """Создание объектов"""
 
     def post(self, request):
         serializer = ItemListSerializer(data=request.data, child=ItemSerializer())
@@ -26,7 +26,7 @@ class ItemsCreateView(APIView):
 
 
 class ItemsView(GenericAPIView):
-    """View на отдачу всех объектов из базы и обновление отдельного объекта"""
+    """Отдача всех объектов из базы"""
 
     serializer_class = ItemSerializer
     queryset = Item.objects
@@ -37,6 +37,13 @@ class ItemsView(GenericAPIView):
             items,
             status=status.HTTP_200_OK
         )
+
+
+class ItemUpdateView(GenericAPIView):
+    """Обновление отдельного объекта"""
+
+    serializer_class = ItemSerializer
+    queryset = Item
 
     def patch(self, request, item_id):
         item = get_object_or_404(self.queryset, pk=item_id)
@@ -49,7 +56,7 @@ class ItemsView(GenericAPIView):
 
 
 class ProxyView(APIView):
-    """View для проксирования API, который указывается в атрибуте upstream"""
+    """Проксирование API, который указывается в атрибуте upstream"""
 
     upstream = 'https://kats1.skbkontur.ru/api_test/test.json'
 

@@ -8,7 +8,7 @@ from app.main.models import Item
 
 class ItemListSerializer(serializers.ListSerializer):
     @staticmethod
-    def _bulk_create_items(self, validated_items):
+    def _bulk_create_items(validated_items):
         return Item.objects.bulk_create([
             Item(value=validated_item_data.get('value'))
             for validated_item_data in validated_items

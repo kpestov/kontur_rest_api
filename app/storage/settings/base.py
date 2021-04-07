@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'corsheaders',
     'rest_framework',
+    'drf_yasg',
 
     # project
     'app.main',
@@ -143,6 +144,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -219,7 +221,11 @@ logging.config.dictConfig({
     }
 })
 
-# todo: не забыть прикрутить swagger!!!
+SWAGGER_SETTINGS = {
+    'DOC_EXPANSION': 'list',
+    'USE_SESSION_AUTH': False,
+    'API_VERSION': '1.0',
+}
 
 CACHE_MAX_REQUESTS = int(os.getenv('CACHE_MAX_REQUESTS', 10))
 
