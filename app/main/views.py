@@ -63,6 +63,6 @@ class ProxyView(APIView):
     def get(self, request):
         proxy_value = cache_data(data=requests.get(self.upstream).text, cache_name='proxy_value')
         return Response(
-            data=proxy_value,
+            data=proxy_value.strip(),
             status=status.HTTP_200_OK
         )
