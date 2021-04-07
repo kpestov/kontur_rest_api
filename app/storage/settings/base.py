@@ -219,16 +219,19 @@ logging.config.dictConfig({
     }
 })
 
+# todo: не забыть прикрутить swagger!!!
+
+CACHE_MAX_REQUESTS = int(os.getenv('CACHE_MAX_REQUESTS', 10))
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://localhost:6379",
-        "TIMEOUT": 30,
+        "TIMEOUT": int(os.getenv('CACHE_TIMEOUT', 300)),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "SOCKET_CONNECT_TIMEOUT": 5,  # seconds
             "SOCKET_TIMEOUT": 5,  # seconds
-            # "PASSWORD": f"{os.getenv('REDIS_PASSWORD')}",
         },
         'VERSION': 1,
     }

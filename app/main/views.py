@@ -1,4 +1,3 @@
-import json
 import requests
 
 from django.shortcuts import get_object_or_404
@@ -50,12 +49,13 @@ class ItemsView(GenericAPIView):
 
 
 class ProxyView(APIView):
+    """View для проксирования API, который указывается в атрибуте upstream"""
+
     upstream = 'https://kats1.skbkontur.ru/api_test/test.json'
 
     def get(self, request):
         proxy_value = cache_data(data=requests.get(self.upstream).text, cache_name='proxy_value')
-        json_string = json.dumps(proxy_value)
         return Response(
-            data=json.loads(json_string),
+            data=proxy_value,
             status=status.HTTP_200_OK
         )
