@@ -73,6 +73,7 @@ venv.bak/
 
 #static
 static_root/
+staticfiles/
 **/static/**/*.map
 
 .DS_Store/

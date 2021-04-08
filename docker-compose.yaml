@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+
+  redis:
+    image: redis:latest
+    restart: always
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
+
+  storage:
+    build: ./
+    restart: always
+    command: gunicorn -c gunicorn.conf --preload app.storage.wsgi
+    volumes:
+      - static_volume:/usr/src/storage/staticfiles
+    expose:
+      - 7777
+    env_file:
+      - ./.env
+    depends_on:
+      - storage_db
+
+  storage_db:
+    image: postgres:12.0-alpine
+    restart: always
+    env_file:
+      - ./.env
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/usr/src/storage/staticfiles
+    restart: always
+    ports:
+      - 8080:80
+    depends_on:
+      - storage
+
+volumes:
+  static_volume:

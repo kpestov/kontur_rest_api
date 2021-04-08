@@ -143,8 +143,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+STATIC_URL = '/staticfiles/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -232,8 +232,8 @@ CACHE_MAX_REQUESTS = int(os.getenv('CACHE_MAX_REQUESTS', 10))
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://localhost:6379",
-        "TIMEOUT": int(os.getenv('CACHE_TIMEOUT', 300)),
+        "LOCATION": "redis://redis:6379",
+        "TIMEOUT": int(os.getenv('CACHE_TIMEOUT', 30)),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "SOCKET_CONNECT_TIMEOUT": 5,  # seconds
