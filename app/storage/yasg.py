@@ -7,7 +7,10 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Тестовый API",
         default_version='v1.0',
-        description="",
+        description=
+        """REST API позволяет сохранять, получать и модифицировать объекты.
+           Также имется возможность спроскировать api-метод (url: api/proxy) с кэшированием устаревающим
+           по времени и по количеству запросов.""",
         license=openapi.License(name="BSD License"),
     ),
     public=True,

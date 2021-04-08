@@ -3,7 +3,7 @@ import pytest
 from django.apps import apps
 from rest_framework.test import APIClient
 
-from app.main.utils import reverse
+from django.urls import reverse
 
 
 @pytest.fixture(scope='session')

@@ -1,6 +1,6 @@
 class CacheGetException(Exception):
-    pass
+    """Исключение при получении значения из кэша"""
 
 
 class CacheSetException(Exception):
-    pass
+    """Исключение при записи значения в кэш"""

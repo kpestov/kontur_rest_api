@@ -1,8 +1,7 @@
 import pytest
 
 from unittest.mock import patch
-
-from app.main.utils import reverse
+from django.urls import reverse
 
 
 @patch('app.main.views.ProxyView.upstream', new='https://kats1.skbkontur.ru/api_test/test.json')
